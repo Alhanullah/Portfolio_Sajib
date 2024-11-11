@@ -1,92 +1,53 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
-const aboutSectionImages = ["background.jpg", "Profile2.svg"];
+const aboutSectionImages = ["background.jpg", "user-1.png"];
 
 export default function About() {
-    const [text, setText] = useState("");
-    const [index, setIndex] = useState(0);
-    const message = "Alhanullah Sajib...";
-    const typingSpeed = 100;
-    const pauseDuration = 2000;
-
-    useEffect(() => {
-        let typingInterval;
-
-        if (index <= message.length) {
-            typingInterval = setInterval(() => {
-                setText(message.slice(0, index));
-                setIndex((prev) => prev + 1);
-            }, typingSpeed);
-        } else {
-            setTimeout(() => {
-                setIndex(0);
-                setText("");
-            }, pauseDuration);
-        }
-
-        return () => clearInterval(typingInterval);
-    }, [index]);
-
     const { ref: aboutRef, inView } = useInView({
         triggerOnce: true,
         threshold: 0.3,
     });
 
     return (
-        <div className='bg-black bg-fixed'>
-            {/* Background section with text animation */}
-            <div className="flex bg-cover bg-center h-screen bg-fixed"
-                style={{
-                    backgroundImage: `url(${process.env.PUBLIC_URL}/img/${aboutSectionImages[0]})`
-                }}
-            >
-                <div className="flex flex-col justify-center items-center w-full h-full bg-gray-100  bg-opacity-50 p-10">
-                    <h1 className="text-4xl text-center text-black font-bold mb-4">
-                        Hi there, my name is
-                    </h1>
-                    <motion.h1
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: inView ? 1 : 0 }}
-                        transition={{ duration: 1 }}
-                        className="text-3xl font-bold text-center text-green-950"
-                    >
-                        {text}
-                    </motion.h1>
-                </div>
-            </div>
+        <div className="py-1 bg-[#162231] ">
 
-            {/* Profile and about section */}
             <div
                 ref={aboutRef}
-                className="bg-gray-200 ml-20 mt-20 mr-20 rounded-lg flex flex-col lg:flex-row justify-evenly items-center p-10 lg:p-20"
+                className="bg-[#2A384C] text-white mx-4 sm:mx-10 lg:mx-20 my-10 rounded-full flex flex-col lg:flex-row justify-evenly items-center p-6 sm:p-10 lg:p-20"
             >
                 <motion.div
                     initial={{ opacity: 0, x: -200 }}
                     animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : -200 }}
                     transition={{ duration: 1.5, ease: "easeInOut" }}
-                    className="flex-shrink-0 mb-10 lg:mb-0">
+                    className="flex-shrink-0 mb-10 lg:mb-0"
+                >
                     <img
                         src={`${process.env.PUBLIC_URL}/img/${aboutSectionImages[1]}`}
                         alt="Profile"
-                        className="h-[300px] w-[300px] lg:h-[400px] lg:w-[400px] "
+                        className="rounded-full h-[200px] w-[200px] sm:h-[300px] sm:w-[300px] lg:h-[400px] lg:w-[400px]"
                     />
                 </motion.div>
 
-                {/* Smooth left-to-right slide-in effect for about section */}
                 <motion.div
                     initial={{ opacity: 0, x: 200 }}
                     animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : 200 }}
                     transition={{ duration: 1.5, ease: "easeInOut" }}
-                    className="max-w-lg p-10 h-auto"
+                    className="rounded-lg  max-w-lg p-4 sm:p-6 lg:p-10"
                 >
-                    <h1 className="font-bold text-2xl lg:text-3xl text-gray-800 mb-4">About Myself</h1>
-                    <p className="text-gray-600 leading-relaxed mb-6">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae, temporibus minus incidunt earum recusandae at ullam exercitationem dolorum
-                        asperiores quaerat quis odit consectetur itaque nobis, nesciunt tenetur officia, natus alias!
+                    <h1 className="font-bold text-xl sm:text-2xl lg:text-3xl text-white mb-4">
+                        About Myself
+                    </h1>
+                    <p className="text-gray-400 leading-relaxed mb-6">
+                    Hello, I’m Alhanullah Sajib, a CSE student at Bangladesh University of Business and Technology (BUBT). 
+                    I am passionate about web development and have experience working with React.js, Tailwind CSS, as well as raw 
+                    HTML/CSS. I enjoy building interactive and responsive websites that provide seamless user experiences. 
+                    I'm always eager to learn new technologies and continuously improve my skills. My goal is to combine my academic 
+                    knowledge with practical web development to create impactful solutions. Let’s connect and collaborate on exciting 
+                    projects!
                     </p>
-                    <button className='hover:text-white hover:bg-black cursor-pointer border-2 border-black p-2 rounded-lg transition-all'>
+                    <button className="cursor-pointer bg-blue-600 hover:bg-opacity-70 text-white px-8 py-3 rounded mb-4 transition-all">
                         Contact
                     </button>
                 </motion.div>
